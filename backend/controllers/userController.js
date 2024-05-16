@@ -6,7 +6,7 @@ const jwt=require('jsonwebtoken')
 
 
 const registerData=async(req,res)=>{
-    console.log(req.body);
+   
 
     const {username,email,password}=req.body;
 
@@ -28,10 +28,9 @@ const registerData=async(req,res)=>{
 }
 
 const loginUserData=async(req,res)=>{
-        console.log(req.body)
+        
         const {email, password}=req.body
         const userAvailable=await user.findOne({email})
-        console.log(userAvailable)
         const decodePassword=await bycrpt.compare(password,userAvailable.password)
         if (userAvailable && decodePassword){
 
@@ -41,19 +40,19 @@ const loginUserData=async(req,res)=>{
                     id:userAvailable.id,
                     username:userAvailable.username
                 }
-                
-
             },process.env.ACCESS_STRING_TOKEN)
-            res.status(200).json({message:"successfully logged in ", token:token})
+            
+        
+           return res.status(200).json({message:"successfully logged in ", token:token})
         }
         else{
-            res.status(400).json({message:"Credentials are incorrect"})
+           return res.status(400).json({message:"Credentials are incorrect"})
         }
 
 
     }
 const homeData=async(req,res)=>{
-    console.log("home is here")
+    
     res.status(200).json({message:"Home welcome"})
 
 }
